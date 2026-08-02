@@ -22,6 +22,9 @@ class RedisClient:
                 db=settings.REDIS_DB,
                 password=settings.REDIS_PASSWORD,
                 decode_responses=True,
+                # Chống treo app: Nếu Redis sập, đợi tối đa 1.5s rồi ném lỗi
+                socket_timeout=1.5,
+                socket_connect_timeout=1.5,
             )
         return cls._client
 
