@@ -1,36 +1,43 @@
 # app/api/v1/users.py
-
 from typing import Annotated
 
-from app.schemas.user import UserCreate, UserResponse, UserUpdate
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.dependencies.pagination import PaginationParams
+
+# Import get_db từ database
+from app.db.database import get_db
+from app.schemas.user import UserCreate, UserResponse, UserUpdate
 from app.services.user_service import UserService
 
-router = APIRouter(prefix="/users", tags=["Users"])
+router = APIRouter()
+
+# Dùng Annotated để bọc Depends lại
+SessionDep = Annotated[AsyncSession, Depends(get_db)]
+PaginationDep = Annotated[PaginationParams, Depends()]
 
 
-@router.get("", response_model=list[UserResponse])
-async def get_users(pagination: Annotated[PaginationParams, Depends()]):
-    return UserService.get_all(skip=pagination.skip, limit=pagination.limit)
-
-
-@router.post("", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
-async def create_user(user_in: UserCreate):
-    return UserService.create(user_in)
+@router.get("/", response_model=list[UserResponse])
+async def get_users(pagination: PaginationDep, db: SessionDep):
+    return await UserService.get_all(db, skip=pagination.skip, limit=pagination.limit)
 
 
 @router.get("/{user_id}", response_model=UserResponse)
-async def get_user(user_id: int):
-    return UserService.get_by_id(user_id)
+async def get_user(user_id: int, db: SessionDep):
+    return await UserService.get_by_id(db, user_id=user_id)
+
+
+@router.post("/", response_model=UserResponse)
+async def create_user(user_in: UserCreate, db: SessionDep):
+    return await UserService.create(db, user_in=user_in)
 
 
 @router.patch("/{user_id}", response_model=UserResponse)
-async def update_user(user_id: int, user_in: UserUpdate):
-    return UserService.update(user_id, user_in)
+async def update_user(user_id: int, user_in: UserUpdate, db: SessionDep):
+    return await UserService.update(db, user_id=user_id, user_in=user_in)
 
 
-@router.delete("/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_user(user_id: int):
-    UserService.delete(user_id)
+@router.delete("/{user_id}")
+async def delete_user(user_id: int, db: SessionDep):
+    return await UserService.delete(db, user_id=user_id)
