@@ -1,0 +1,85 @@
+[2026-08-03 18:34:50,951] | INFO     | logging_middleware:dispatch:40 | [698f3d79-3e97-4d71-80ec-72f794cb3b41] 127.0.0.1 | GET /docs | Status: 200 | Time: 0.0000s
+[2026-08-03 18:34:51,134] | INFO     | logging_middleware:dispatch:40 | [2ccb884d-5089-41f6-b4d2-3b606af0ae55] 127.0.0.1 | GET /openapi.json | Status: 200 | Time: 0.0782s
+[2026-08-03 18:35:03,140] | INFO     | base:_execute_context:1848 | select pg_catalog.version()
+[2026-08-03 18:35:03,140] | INFO     | base:_execute_context:1848 | [raw sql] ()
+[2026-08-03 18:35:03,158] | INFO     | base:_execute_context:1848 | select current_schema()
+[2026-08-03 18:35:03,158] | INFO     | base:_execute_context:1848 | [raw sql] ()
+[2026-08-03 18:35:03,164] | INFO     | base:_execute_context:1848 | show standard_conforming_strings
+[2026-08-03 18:35:03,165] | INFO     | base:_execute_context:1848 | [raw sql] ()
+[2026-08-03 18:35:03,166] | INFO     | base:_connection_begin_impl:2712 | BEGIN (implicit)
+[2026-08-03 18:35:03,167] | INFO     | base:_execute_context:1848 | SELECT 1
+[2026-08-03 18:35:03,168] | INFO     | base:_execute_context:1848 | [generated in 0.00086s] ()
+[2026-08-03 18:35:23,388] | INFO     | logging_middleware:dispatch:40 | [9ff0d6a3-55b8-4cd1-ab92-59428a51bc45] 127.0.0.1 | GET /health | Status: 200 | Time: 20.3944s
+[2026-08-03 18:35:23,389] | INFO     | base:_connection_rollback_impl:2715 | ROLLBACK
+[2026-08-03 18:36:09,967] | INFO     | base:_connection_begin_impl:2712 | BEGIN (implicit)
+[2026-08-03 18:36:09,968] | INFO     | base:_execute_context:1848 | SELECT 1
+[2026-08-03 18:36:09,968] | INFO     | base:_execute_context:1848 | [cached since 66.8s ago] ()
+[2026-08-03 18:36:09,982] | DEBUG    | connection:_enable_maintenance_notifications:429 | Failed to enable maintenance notifications: unknown subcommand 'MAINT_NOTIFICATIONS'. Try CLIENT HELP.
+[2026-08-03 18:36:09,984] | INFO     | logging_middleware:dispatch:40 | [0a7997e5-8b0e-4fd8-b2f2-b8dfddd13b4c] 127.0.0.1 | GET /health | Status: 200 | Time: 0.0210s
+[2026-08-03 18:36:09,986] | INFO     | base:_connection_rollback_impl:2715 | ROLLBACK
+[2026-08-03 18:36:12,882] | INFO     | base:_connection_begin_impl:2712 | BEGIN (implicit)
+[2026-08-03 18:36:12,882] | INFO     | base:_execute_context:1848 | SELECT 1
+[2026-08-03 18:36:12,884] | INFO     | base:_execute_context:1848 | [cached since 69.72s ago] ()
+[2026-08-03 18:36:12,885] | INFO     | logging_middleware:dispatch:40 | [8146f15c-c6b3-4e42-9342-e4ee95cb0a50] 127.0.0.1 | GET /health | Status: 200 | Time: 0.0040s
+[2026-08-03 18:36:12,886] | INFO     | base:_connection_rollback_impl:2715 | ROLLBACK
+[2026-08-03 19:16:55,069] | WARNING  | cache:set:48 | Redis SET lỗi (test_key:1): Timeout connecting to server
+[2026-08-03 19:22:03,042] | WARNING  | cache:set:48 | Redis SET lỗi (test_key:1): Timeout connecting to server
+[2026-08-03 19:27:57,440] | WARNING  | cache:set:48 | Redis SET lỗi (test_key:1): Timeout connecting to server
+[2026-08-03 19:28:23,386] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:6): Timeout connecting to server
+[2026-08-03 19:28:44,156] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:7): Timeout connecting to server
+[2026-08-03 19:28:44,672] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:28:45,444] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 9)
+[2026-08-03 19:29:53,300] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:3): Timeout connecting to server
+[2026-08-03 19:30:13,722] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:4): Timeout connecting to server
+[2026-08-03 19:30:14,081] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:30:14,932] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 6)
+[2026-08-03 19:31:09,378] | WARNING  | cache:set:48 | Redis SET lỗi (test_key:1): Timeout connecting to server
+[2026-08-03 19:31:35,523] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:6): Timeout connecting to server
+[2026-08-03 19:31:56,779] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:7): Timeout connecting to server
+[2026-08-03 19:31:57,153] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:31:57,721] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 9)
+[2026-08-03 19:33:06,946] | WARNING  | cache:set:48 | Redis SET lỗi (test_key:1): Timeout connecting to server
+[2026-08-03 19:33:37,004] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:6): Timeout connecting to server
+[2026-08-03 19:33:58,291] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:7): Timeout connecting to server
+[2026-08-03 19:33:58,687] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:33:59,301] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 9)
+[2026-08-03 19:34:21,299] | WARNING  | cache:get:29 | Redis GET lỗi (user:999999): Timeout connecting to server
+[2026-08-03 19:36:00,615] | WARNING  | cache:set:48 | Redis SET lỗi (test_key:1): Timeout connecting to server
+[2026-08-03 19:36:28,927] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:6): Timeout connecting to server
+[2026-08-03 19:36:49,778] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:7): Timeout connecting to server
+[2026-08-03 19:36:50,228] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:36:50,854] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 9)
+[2026-08-03 19:37:12,063] | WARNING  | cache:get:29 | Redis GET lỗi (user:999999): Timeout connecting to server
+[2026-08-03 19:38:41,732] | WARNING  | cache:set:48 | Redis SET lỗi (test_key:1): Timeout connecting to server
+[2026-08-03 19:39:05,835] | WARNING  | cache:get:29 | Redis GET lỗi (user:4): Timeout connecting to server
+[2026-08-03 19:39:26,798] | WARNING  | cache:set:48 | Redis SET lỗi (user:4): Timeout connecting to server
+[2026-08-03 19:39:47,678] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:5): Timeout connecting to server
+[2026-08-03 19:40:14,202] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:11): Timeout connecting to server
+[2026-08-03 19:40:35,086] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:12): Timeout connecting to server
+[2026-08-03 19:40:35,618] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:40:36,362] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 4)
+[2026-08-03 19:40:57,728] | WARNING  | cache:get:29 | Redis GET lỗi (user:999999): Timeout connecting to server
+[2026-08-03 19:40:58,208] | WARNING  | cache:get:29 | Redis GET lỗi (user:7): Timeout connecting to server
+[2026-08-03 19:41:19,445] | WARNING  | cache:set:48 | Redis SET lỗi (user:7): Timeout connecting to server
+[2026-08-03 19:42:19,294] | WARNING  | cache:set:48 | Redis SET lỗi (test_key:1): Timeout connecting to server
+[2026-08-03 19:42:42,428] | WARNING  | cache:get:29 | Redis GET lỗi (user:4): Timeout connecting to server
+[2026-08-03 19:43:02,967] | WARNING  | cache:set:48 | Redis SET lỗi (user:4): Timeout connecting to server
+[2026-08-03 19:43:24,132] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:5): Timeout connecting to server
+[2026-08-03 19:43:43,953] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:6): Timeout connecting to server
+[2026-08-03 19:44:09,342] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:12): Timeout connecting to server
+[2026-08-03 19:44:30,881] | WARNING  | cache:delete:58 | Redis DELETE lỗi (user:13): Timeout connecting to server
+[2026-08-03 19:44:31,255] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:44:31,914] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 15)
+[2026-08-03 19:44:53,999] | WARNING  | cache:get:29 | Redis GET lỗi (user:999999): Timeout connecting to server
+[2026-08-03 19:46:26,056] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:46:26,643] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 15)
+[2026-08-03 19:46:54,714] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:46:55,378] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 15)
+[2026-08-03 19:47:33,701] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:47:34,573] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 15)
+[2026-08-03 19:54:51,133] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:54:51,706] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 15)
+[2026-08-03 19:55:47,772] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:55:48,306] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 15)
+[2026-08-03 19:57:10,279] | WARNING  | user_service:register:60 | Đăng ký thất bại: Email đã tồn tại (duplicate@taskhub.com)
+[2026-08-03 19:57:10,813] | WARNING  | user_service:login:99 | Đăng nhập thất bại: Sai mật khẩu (User ID: 15)
