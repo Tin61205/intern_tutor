@@ -12,6 +12,8 @@ Toàn bộ project được chia thành 7 session.
 | Session 5 | Redis Cache & API Documentation |
 | Session 6 | Configuration, Logging & Testing |
 | Session 7 | Docker & Production Deployment |
+| Session 8 | Review, Refactor & Optimization |
+
 
 Mỗi session đều được phát triển trên chính project này và có branch riêng để dễ dàng theo dõi quá trình phát triển của hệ thống.
 
