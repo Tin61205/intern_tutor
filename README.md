@@ -74,6 +74,3 @@ uv run ruff check .
 # Chạy Type Checker (MyPy)
 uv run mypy app
 ```
-
----
-*Dự án này là sản phẩm tốt nghiệp Khóa học FastAPI Cấp tốc - Được review bởi AI Mentor.*
