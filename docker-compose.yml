@@ -1,0 +1,77 @@
+
+services:
+  # ----------------------------------------
+  # 1. Database PostgreSQL
+  # ----------------------------------------
+  db:
+    image: postgres:16-alpine
+    container_name: taskhub_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgrespassword}
+      POSTGRES_DB: ${POSTGRES_DB:-taskhub_dev}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - taskhub_network
+
+  # ----------------------------------------
+  # 2. Redis Cache
+  # ----------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: taskhub_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - taskhub_network
+
+  # ----------------------------------------
+  # 3. Ứng dụng Backend FastAPI
+  # ----------------------------------------
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: taskhub_api
+    restart: always
+    # Ghi đè file biến môi trường local (.env đè .env.dev nếu cần)
+    env_file:
+      - .env.dev
+      - .env
+    environment:
+      # Ghi đè DB Host và Redis Host từ localhost sang tên container bằng biến tự sinh
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgrespassword}@db:5432/${POSTGRES_DB:-taskhub_dev}
+      - REDIS_URL=redis://redis:6379/0
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount thư mục local vào container để code thay đổi thì server tự reload (hot-reload)
+      - .:/app
+    depends_on:
+      - db
+      - redis
+    networks:
+      - taskhub_network
+    # Chạy uvicorn với cờ --reload cho môi trường dev
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+# ==========================================
+# Cấu hình Ổ cứng ảo (Volumes)
+# ==========================================
+volumes:
+  postgres_data:
+  redis_data:
+
+# ==========================================
+# Cấu hình Mạng nội bộ (Networks)
+# ==========================================
+networks:
+  taskhub_network:
+    driver: bridge

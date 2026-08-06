@@ -1,0 +1,107 @@
+
+services:
+  # ----------------------------------------
+  # 1. Database PostgreSQL (Tắt port ra ngoài)
+  # ----------------------------------------
+  db:
+    image: postgres:16-alpine
+    container_name: taskhub_db_prod
+    restart: always
+    env_file:
+      - .env
+      - .env.prod
+    # [BẢO MẬT] Bỏ hẳn mục ports, Database chỉ được truy cập nội bộ qua taskhub_network
+    volumes:
+      - postgres_data_prod:/var/lib/postgresql/data
+    networks:
+      - taskhub_network
+
+  # ----------------------------------------
+  # 2. Redis Cache (Tắt port ra ngoài)
+  # ----------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: taskhub_redis_prod
+    restart: always
+    # [BẢO MẬT] Không map ports ra host
+    volumes:
+      - redis_data_prod:/data
+    networks:
+      - taskhub_network
+
+  # ----------------------------------------
+  # 3. Ứng dụng Backend FastAPI (Chạy nhiều Worker)
+  # ----------------------------------------
+  api:
+    image: taskhub-api:production
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: taskhub_api_prod
+    restart: always
+    # [QUAN TRỌNG] Đọc thẳng mọi config (DATABASE_URL, REDIS_HOST...) từ file này
+    env_file:
+      - .env
+      - .env.prod
+    # [BẢO MẬT] API hoàn toàn bị ẩn, Nginx sẽ đứng ra giao tiếp thay
+    depends_on:
+      db:
+        condition: service_started
+      redis:
+        condition: service_started
+      migrator:
+        condition: service_completed_successfully
+    networks:
+      - taskhub_network
+    # [HIỆU NĂNG] Thay vì chạy uvicorn thuần, ta dùng Gunicorn làm process manager với Uvicorn worker
+    # Hoặc nếu dùng uvicorn trực tiếp (như chuẩn mới), ta chỉ định nhiều worker thay vì --reload
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4", "--proxy-headers"]
+    # [GIÁM SÁT] Khám sức khỏe tự động
+    healthcheck:
+      # Dùng python có sẵn để gọi API health, nếu trả về lỗi (như 503) thì kịch bản văng lỗi 1
+      test: ["CMD-SHELL", "python -c 'import urllib.request; import sys; response = urllib.request.urlopen(\"http://127.0.0.1:8000/api/v1/health\" if False else \"http://127.0.0.1:8000/health\"); sys.exit(0 if response.getcode() == 200 else 1)'"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  # ----------------------------------------
+  # 4. Database Migrator (Chạy 1 lần rồi tự thoát)
+  # ----------------------------------------
+  migrator:
+    image: taskhub-api:production
+    container_name: taskhub_migrator
+    env_file:
+      - .env
+      - .env.prod
+    depends_on:
+      - db
+    networks:
+      - taskhub_network
+    # Lệnh này sẽ được chạy thay vì uvicorn. Xong việc container sẽ tự tắt.
+    command: ["alembic", "upgrade", "head"]
+
+  # ----------------------------------------
+  # 4. Nginx Reverse Proxy (Cổng bảo vệ)
+  # ----------------------------------------
+  nginx:
+    image: nginx:alpine
+    container_name: taskhub_nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - taskhub_network
+
+volumes:
+  postgres_data_prod:
+  redis_data_prod:
+
+networks:
+  taskhub_network:
+    driver: bridge
