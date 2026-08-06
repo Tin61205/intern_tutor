@@ -1,0 +1,39 @@
+# Python-generated files
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+dist/
+wheels/
+*.egg-info/
+.eggs/
+.pytest_cache/
+
+# Linter / Formatter / Test
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Logs
+logs/
+
+# Environment variables (Bảo mật thông tin Database)
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Database local
+*.db
+*.sqlite3

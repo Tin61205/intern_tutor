@@ -1,0 +1,44 @@
+# Bỏ qua thư mục Git
+.git/
+.gitignore
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+dist/
+wheels/
+*.egg-info/
+.eggs/
+.pytest_cache/
+
+# Linter / Formatter / Test
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Bỏ qua môi trường ảo (virtual environment)
+.venv/
+venv/
+ENV/
+env/
+
+# Bỏ qua thư mục logs (chỉ lưu log trong môi trường dev hoặc mount ra volume)
+logs/
+
+# Bỏ qua thư mục chứa mã nguồn test (giảm dung lượng, tăng bảo mật)
+tests/
+
+# Bỏ qua các file môi trường nhạy cảm 
+.env
+.env.*
+!.env.example
+
+# Bỏ qua file database local
+*.db
+*.sqlite3
+
+# Bỏ qua các file hệ điều hành
+.DS_Store
+Thumbs.db
